@@ -1,8 +1,11 @@
 import logging
 import json
+from flask import Flask, request
 from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, WebAppInfo
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
 from telegram.error import TelegramError
+
+app = Flask(__name__)
 
 # Enable logging
 logging.basicConfig(
@@ -88,6 +91,10 @@ def main():
     application.add_error_handler(handle_errors)
 
     application.run_polling()
+
+@app.route('/')
+def index():
+    return "Telegram Bot is running"
 
 if __name__ == '__main__':
     main()
